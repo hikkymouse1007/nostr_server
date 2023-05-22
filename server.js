@@ -1,17 +1,17 @@
 import {WebSocketServer} from 'ws'
 import AWS from 'aws-sdk'
-import { v4 as uuidv4 } from 'uuid'
 import {
   verifySignature
 } from 'nostr-tools'
 import 'websocket-polyfill'
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient({
-  region: 'us-east-1',
-  endpoint: 'http://localhost:8000',
-  accessKeyId: 'fakeMyKeyId',
-  secretAccessKey: 'fakeSecretAccessKey'
+  region: process.env.AWS_REGION,
+  endpoint: process.env.ENDPOINT,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY
 })
+
 
 const server = new WebSocketServer({port: 8080})
 const subscriptions = {}
@@ -29,7 +29,7 @@ server.on('connection', function connection(ws) {
             throw new Error('Failed to verify signature')
           }
 
-          await storeEventData(message)
+          storeEventData(message)
           ws.send('ok')
 
           for (const subId in subscriptions) {
