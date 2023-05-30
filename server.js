@@ -12,8 +12,10 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient({
   secretAccessKey: process.env.AWS_SECRET_KEY
 })
 
+const PORT = process.env.PORT || 8080
 
-const server = new WebSocketServer({port: 8080})
+
+const server = new WebSocketServer({port: PORT})
 const subscriptions = {}
 
 server.on('connection', function connection(ws) {
