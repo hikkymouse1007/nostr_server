@@ -1,7 +1,7 @@
 import {WebSocketServer} from 'ws'
 import AWS from 'aws-sdk'
 import {
-  verifySignature
+  verifySignature,
 } from 'nostr-tools'
 import 'websocket-polyfill'
 

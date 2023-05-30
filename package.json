@@ -4,19 +4,19 @@
     "aws-sdk": "^2.1377.0",
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
+    "http-status-codes": "^2.2.0",
     "nostr-tools": "^1.10.1",
     "uuid": "^9.0.0",
     "websocket-polyfill": "^0.0.3",
     "ws": "^8.13.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js && node watcher.js"
   },
   "name": "nostr-server",
   "description": "Server to deploy on heroku",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
   "keywords": [
     "nostr",
     "heroku"

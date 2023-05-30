@@ -15,7 +15,7 @@
       <ul id="content"></ul>
     </main>
     <script>
-      let socket = new WebSocket('ws://localhost:8080');
+      let socket = new WebSocket('wss://floating-fortress-37708.herokuapp.com');
 
       socket.onopen = function (e) {
         alert('[open] Connection established');
@@ -28,14 +28,11 @@
       };
 
       socket.onmessage = function (event) {
-        var reader = new FileReader();
-        reader.onload = function () {
-          var data = JSON.parse(reader.result);
-          var ul = document.getElementById('content');
-          var li = document.createElement('li');
-          li.appendChild(document.createTextNode(JSON.stringify(data)));
-          ul.appendChild(li);
-        };
+        var data = JSON.parse(event.data);
+        var ul = document.getElementById('content');
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(JSON.stringify(data)));
+        ul.appendChild(li);
         console.log(event.data)
         // reader.readAsText(event.data);
       };
