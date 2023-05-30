@@ -32,9 +32,7 @@
         var ul = document.getElementById('content');
         var li = document.createElement('li');
         li.appendChild(document.createTextNode(JSON.stringify(data)));
-        ul.appendChild(li);
-        console.log(event.data)
-        // reader.readAsText(event.data);
+        ul.appendChild(li); 
       };
 
       socket.onclose = function (event) {

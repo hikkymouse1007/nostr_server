@@ -1,3 +1,7 @@
+import http from 'http'
+import httpStatus from 'http-status-codes'
+import fs from 'fs'
+
 import {WebSocketServer} from 'ws'
 import AWS from 'aws-sdk'
 import {
@@ -14,11 +18,30 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient({
 
 const PORT = process.env.PORT || 8080
 
+const routeMap = {
+  "/watcher": "watcher.html"
+};
 
-const server = new WebSocketServer({port: PORT})
+const server = http.createServer((request, response) => {
+  response.writeHead(httpStatus.StatusCodes.OK, {
+      "Content-Type": "text/html"
+    });
+
+  if (routeMap[request.url]) {
+      fs.readFile(routeMap[request.url], (error, data) => {
+          response.write(data);
+          response.end();
+      })
+  } else {
+      response.end("<h1>Sorry, page not found</h1>");
+  }
+})
+
+
+const wss = new WebSocketServer({server})
 const subscriptions = {}
 
-server.on('connection', function connection(ws) {
+wss.on('connection', function connection(ws) {
   let subscriptionId;
 
   ws.on('message', async (data) => {
@@ -81,6 +104,9 @@ server.on('connection', function connection(ws) {
     }
   })
 })
+
+server.listen(PORT);
+console.log(`The server is listening on port: ${PORT}`);
 
 const storeEventData = (eventMessage) => {
   const messageItem =  {

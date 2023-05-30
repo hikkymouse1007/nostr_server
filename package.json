@@ -11,7 +11,7 @@
     "ws": "^8.13.0"
   },
   "scripts": {
-    "start": "node server.js && node watcher.js"
+    "start": "node server.js"
   },
   "name": "nostr-server",
   "description": "Server to deploy on heroku",
