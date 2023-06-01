@@ -32,7 +32,7 @@
         var ul = document.getElementById('content');
         var li = document.createElement('li');
         li.appendChild(document.createTextNode(JSON.stringify(data)));
-        ul.appendChild(li); 
+        ul.appendChild(li);
       };
 
       socket.onclose = function (event) {

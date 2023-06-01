@@ -1,4 +1,5 @@
 import http from 'http'
+import 'newrelic'
 import httpStatus from 'http-status-codes'
 import fs from 'fs'
 
